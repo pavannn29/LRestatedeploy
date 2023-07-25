@@ -4,8 +4,10 @@ import numpy as np
 import joblib
 from sklearn.preprocessing import LabelEncoder, MinMaxScaler
 
-model_path = '/Users/pavan/MLProjects/MLClass/linear_regression_model.joblib'
-csv_path = '/Users/pavan/MLProjects/MLClass/LRestate.csv'
+# model_path = '/Users/pavan/MLProjects/MLClass/linear_regression_model.joblib'
+model_path = 'https://raw.githubusercontent.com/pavannn29/LRestatedeploy/main/data/linear_regression_model.joblib'
+#csv_path = '/Users/pavan/MLProjects/MLClass/LRestate.csv'
+csv_path = 'https://raw.githubusercontent.com/pavannn29/LRestatedeploy/main/data/LRestate.csv'
 # Load the trained model
 model = joblib.load(model_path)
 
