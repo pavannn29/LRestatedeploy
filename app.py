@@ -3,13 +3,32 @@ import pandas as pd
 import numpy as np
 import joblib
 from sklearn.preprocessing import LabelEncoder, MinMaxScaler
+import requests
+from io import BytesIO
 
 # model_path = '/Users/pavan/MLProjects/MLClass/linear_regression_model.joblib'
-model_path = 'https://raw.githubusercontent.com/pavannn29/LRestatedeploy/main/data/linear_regression_model.joblib'
+#model_path = 'https://raw.githubusercontent.com/pavannn29/LRestatedeploy/main/data/linear_regression_model.joblib'
+model_path = 'https://drive.google.com/file/d/1taQGa3kikK4IHGM_G9cfMAm0cJ824dho/view?usp=sharing'
 #csv_path = '/Users/pavan/MLProjects/MLClass/LRestate.csv'
-csv_path = 'https://raw.githubusercontent.com/pavannn29/LRestatedeploy/main/data/LRestate.csv'
+#csv_path = 'https://raw.githubusercontent.com/pavannn29/LRestatedeploy/main/data/LRestate.csv'
+csv_path = 'https://drive.google.com/file/d/1nGzG2-q5DZ2WFPF_8Cq4urcBE7_vCpmn/view?usp=sharing'
 # Load the trained model
-model = joblib.load(model_path)
+# model = joblib.load(model_path)
+
+# Function to fetch data and load the model
+def fetch_data_and_model():
+    # Fetch the data file
+    data_content = requests.get(csv_path).content
+    data = pd.read_csv(BytesIO(data_content))
+
+    # Fetch the model file
+    model_content = requests.get(model_path).content
+    model = joblib.loads(model_content)
+
+    return data, model
+
+# Load data and model during app initialization
+data, model = fetch_data_and_model()
 
 # Load the label encoder and scaler used during training
 label_encoder = LabelEncoder()
