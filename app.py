@@ -21,9 +21,13 @@ def fetch_data_and_model():
     data_content = requests.get(csv_path).content
     data = pd.read_csv(BytesIO(data_content))
 
-    # Fetch the model file
+    # Fetch the model file and save it locally
     model_content = requests.get(model_path).content
-    model = joblib.loads(model_content)
+    with open('linear_regression_model.joblib', 'wb') as f:
+        f.write(model_content)
+
+    # Load the model from the local file
+    model = joblib.load('linear_regression_model.joblib')
 
     return data, model
 
