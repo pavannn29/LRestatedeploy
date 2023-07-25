@@ -5,7 +5,7 @@ import joblib
 from sklearn.preprocessing import LabelEncoder, MinMaxScaler
 import requests
 from io import BytesIO
-
+import os
 # model_path = '/Users/pavan/MLProjects/MLClass/linear_regression_model.joblib'
 #model_path = 'https://raw.githubusercontent.com/pavannn29/LRestatedeploy/main/data/linear_regression_model.joblib'
 model_path = 'https://drive.google.com/file/d/1taQGa3kikK4IHGM_G9cfMAm0cJ824dho/view?usp=sharing'
@@ -16,18 +16,20 @@ csv_path = 'https://drive.google.com/file/d/1nGzG2-q5DZ2WFPF_8Cq4urcBE7_vCpmn/vi
 # model = joblib.load(model_path)
 
 # Function to fetch data and load the model
+# Function to fetch data and load the model
 def fetch_data_and_model():
     # Fetch the data file
-    data_content = requests.get(csv_path).content
+    data_content = requests.get(data_url).content
     data = pd.read_csv(BytesIO(data_content))
 
     # Fetch the model file and save it locally
-    model_content = requests.get(model_path).content
+    model_content = requests.get(model_url).content
     with open('linear_regression_model.joblib', 'wb') as f:
         f.write(model_content)
 
     # Load the model from the local file
-    model = joblib.load('linear_regression_model.joblib')
+    model_path = os.path.join(os.path.dirname(__file__), 'linear_regression_model.joblib')
+    model = joblib.load(model_path)
 
     return data, model
 
